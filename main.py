@@ -23,24 +23,34 @@ def exclusiveOr(a, b):
 
 
 def F(R0, k):
-    total = (2 * math.pow(BinarytoDecimal(R0), BinarytoDecimal(k))) % 16
+    total = (2 * (math.pow(BinarytoDecimal(R0), BinarytoDecimal(k)))) % 16
     total = DecimaltoBinary(total)
-    if len(total)!= 4:
+    while len(total) != 4:
         total = "0" + total
     return total
 
+
 def DecimaltoBinary(a):
     a = int(a)
-    if a >=1:
-        return str(DecimaltoBinary(a//2)) +  str(a%2)
+    if a >= 1:
+        return str(DecimaltoBinary(a // 2)) + str(a % 2)
     else:
         return ""
+
 
 def BinarytoDecimal(a):
     total = 0
     for x in range(4):
-        total = total + int(a[3-x])*math.pow(2,x)
+        total = total + int(a[3 - x]) * math.pow(2, x)
     return total
 
 
-print(F("1111","0110"))
+def ASCIIBinary(x):
+    bin = DecimaltoBinary(str(ord(x)))
+    while len(bin) != 8:
+        bin = '0' + bin
+    return bin
+
+word = input("Enter word")
+for x in word:
+    print(feistel(ASCIIBinary(x),"0011"))
